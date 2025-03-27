@@ -1,5 +1,5 @@
 import WallService.add
-import WallService.posts
+import WallService.sizeOfPosts
 import WallService.update
 
 fun main() {
@@ -10,7 +10,7 @@ fun main() {
     add()
     add()
 
-    println("posts size is = ${posts.size}")
+    println("posts size is = ${sizeOfPosts()}")
 
     val sample = Post(3, copyright = "Super", likes = Post.Like(500, canLike = true))
 
@@ -51,7 +51,7 @@ data class Post(
 }
 
 object WallService {
-    var posts = emptyArray<Post>()
+    private var posts = emptyArray<Post>()
     private var number: Int = 0
 
     fun add(): Post {
@@ -71,5 +71,9 @@ object WallService {
             }
         }
         return false
+    }
+
+    fun sizeOfPosts(): Int {
+        return posts.size
     }
 }
