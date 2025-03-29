@@ -1,20 +1,24 @@
 import WallService.add
+import WallService.postsAny
 import WallService.sizeOfPosts
 import WallService.update
 
 fun main() {
+    val postIni = Post(0, likes = Post.Like(0, false, false, false))
 
-    add()
-    add()
-    add()
-    add()
-    add()
+    add(postIni)
+    add(postIni)
+    add(postIni)
+    add(postIni)
+    add(postIni)
 
     println("posts size is = ${sizeOfPosts()}")
+    postsAny(1)
 
     val sample = Post(3, copyright = "Super", likes = Post.Like(500, canLike = true))
 
     println(update(sample))
+
 }
 
 data class Post(
@@ -47,26 +51,24 @@ data class Post(
         val canLike: Boolean = false,
         val canPublish: Boolean = false
     )
-
 }
 
 object WallService {
-    private var posts = emptyArray<Post>()
+    var posts = emptyArray<Post>()
     private var number: Int = 0
 
-    fun add(): Post {
+    fun add(post: Post): Post {
         number++
-        val post = Post(number, likes = Post.Like())
-        posts += post
+        val p = post.copy(id = number)
+        posts += p
         return posts.last()
     }
 
     fun update(post: Post): Boolean {
-        for (p in posts) {
-            if (post.id == p.id) {
-                posts[post.id - 1] = post.copy()
-                posts[post.id - 1].showDataPost()
-
+        for (i in posts.indices) {
+            if (post.id == posts[i].id) {
+                posts[i] = post
+                //posts[i].showDataPost()
                 return true
             }
         }
@@ -75,5 +77,10 @@ object WallService {
 
     fun sizeOfPosts(): Int {
         return posts.size
+    }
+
+    fun postsAny(index: Int) {
+        println("Element $index of posts:")
+        posts[index].showDataPost()
     }
 }
