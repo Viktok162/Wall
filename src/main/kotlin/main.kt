@@ -14,8 +14,13 @@ fun main() {
 
     println("posts size is = ${sizeOfPosts()}")
     postsAny(1)
+<<<<<<< HEAD
+=======
+
+>>>>>>> c985b618ae3f8fc2e6ea97db7f1915ea23be66c6
     val sample = Post(3, copyright = "Super", likes = Post.Like(500, canLike = true))
     println(update(sample))
+
 }
 
 data class Post(
